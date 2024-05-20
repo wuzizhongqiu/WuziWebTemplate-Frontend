@@ -1,4 +1,5 @@
 import axios from "axios";
+import { message } from "ant-design-vue";
 
 const myAxios = axios.create({
   baseURL: "http://localhost:8998",
@@ -15,26 +16,36 @@ myAxios.interceptors.request.use(function(config) {
   return config;
 }, function(error) {
   // 对请求错误做些什么
-  return Promise.reject(error);
+  return Promise.reject(error).catch(error);
 });
 
 // 全局响应拦截器
-myAxios.interceptors.response.use(function(response) {
-  console.log(response)
-  // 2xx 范围内的状态码都会触发该函数。
-  // 对响应数据做点什么
-  const {data} = response;
-  if (data.code === 40100) {
-    // 不是获取用户信息的请求
-    if (!response.request.responseURL.includes("user/get/login") && !window.location.pathname.includes("user/login")) {
-      window.location.href = `user/login?redirect=${window.location.href};`
+myAxios.interceptors.response.use(
+  function (response) {
+    console.log(response);
+    // Any status code that lie within the range of 2xx cause this function to trigger
+    // Do something with response data
+    const { data } = response;
+
+    // 未登录
+    if (data.code === 40100) {
+      // 不是获取用户信息的请求，并且用户目前不是已经在用户登录页面，则跳转到登录页面
+      if (
+        !response.request.responseURL.includes("user/get/login") &&
+        !window.location.pathname.includes("/user/login")
+      ) {
+        message.warning("请先登录");
+        window.location.href = `/user/login?redirect=${window.location.href}`;
+      }
     }
+
+    return response;
+  },
+  function (error) {
+    // Any status codes that falls outside the range of 2xx cause this function to trigger
+    // Do something with response error
+    return Promise.reject(error);
   }
-  return response;
-}, function(error) {
-  // 超出 2xx 范围的状态码都会触发该函数。
-  // 对响应错误做点什么
-  return Promise.reject(error);
-});
+);
 
 export default myAxios;

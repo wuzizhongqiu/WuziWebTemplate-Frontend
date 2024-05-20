@@ -37,7 +37,6 @@ import checkAccess from "@/access/checkAccess";
 
 const loginUserStore = useLoginUserStore();
 
-
 const router = useRouter();
 // 当前选中的菜单项
 const selectedKeys = ref(["/"]);
@@ -59,6 +58,7 @@ const visibleRoutes = computed(() => {
     return true;
   });
 });
+
 
 // 处理菜单点击事件
 const handleMenuClick = ({ item, key, keyPath }: { item: any; key: string; keyPath: any }) => {

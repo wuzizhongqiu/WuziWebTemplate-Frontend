@@ -2,6 +2,8 @@ import { RouteRecordRaw } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import UserLayout from "../layouts/UserLayout.vue";
 import NoAuthPage from "../views/NoAuthPage.vue";
+import UserLoginPage from "../views/UserLoginPage.vue";
+import UserRegisterPage from "../views/UserRegisterPage.vue";
 import ACCESS_NUM from "@/access/accessEnum";
 
 export const routes: Array<RouteRecordRaw> = [
@@ -45,12 +47,12 @@ export const routes: Array<RouteRecordRaw> = [
       {
         path: "/user/login",
         name: "用户登录",
-        component: HomeView,
+        component: UserLoginPage,
       },
       {
         path: "/user/register",
         name: "用户注册",
-        component: HomeView,
+        component: UserRegisterPage,
       }
     ]
   },

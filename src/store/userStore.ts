@@ -1,7 +1,9 @@
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
+// @ts-ignore
 import { userGetCurrentUser, userList, userLogin } from "@/api/user";
 import ACCESS_NUM from "@/access/accessEnum";
+import { message } from "ant-design-vue";
 
 /**
  * 这里的作用是：
@@ -25,6 +27,7 @@ export const useLoginUserStore = defineStore("", () => {
       // @ts-ignore
       loginUser.value = res.data.data;
     } else {
+      message.error("请先登录")
       loginUser.value = {};
     }
   }
