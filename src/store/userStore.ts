@@ -22,12 +22,15 @@ export const useLoginUserStore = defineStore("", () => {
   async function fetchLoginUser() {
     // 这里放一个获取用户当前登录态的方法
     // @ts-ignore
-    const res = await userGetCurrentUser({}); // TODO 调用失败直接崩溃，需要有一个异常处理才行
-    if (res.status == 200) { // 获取到用户当前的信息
+    const res = await userGetCurrentUser({})
+    if (res?.status == 200) { // 获取到用户当前的信息
       // @ts-ignore
       loginUser.value = res.data.data;
     } else {
-      message.error("请先登录")
+      if (!window.location.pathname.includes("/user/login") && !window.location.pathname.includes("/user/register")) {
+        message.error("请先登录")
+        window.location.href = `/user/login?redirect=${window.location.href}`;
+      }
       loginUser.value = {};
     }
   }

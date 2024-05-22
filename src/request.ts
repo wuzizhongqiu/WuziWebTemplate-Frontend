@@ -15,8 +15,8 @@ myAxios.interceptors.request.use(function(config) {
   }
   return config;
 }, function(error) {
-  // 对请求错误做些什么
-  return Promise.reject(error).catch(error);
+  // 对请求错误做些什么 TODO 我这里设置的是，暂时让 Axios 不再抛出错误
+  // return Promise.reject(error).catch(error);
 });
 
 // 全局响应拦截器
@@ -27,8 +27,8 @@ myAxios.interceptors.response.use(
     // Do something with response data
     const { data } = response;
 
-    // 未登录
-    if (data.code === 40100) {
+    // 未登录 TODO 实际上这里是没有用的，因为我的错误码形式和 Axios 的错误处理冲突
+    if (data.message === "invalid token") {
       // 不是获取用户信息的请求，并且用户目前不是已经在用户登录页面，则跳转到登录页面
       if (
         !response.request.responseURL.includes("user/get/login") &&
@@ -44,7 +44,7 @@ myAxios.interceptors.response.use(
   function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
-    return Promise.reject(error);
+    // return Promise.reject(error);
   }
 );
 

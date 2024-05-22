@@ -96,6 +96,36 @@
         }
       }
     },
+    "/v1/user/listbypage": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "User_ListUserByPage",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/http.user.ListUserByPageRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/http.user.ListUserByPageReply"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/user/login": {
       "post": {
         "tags": [
@@ -240,6 +270,34 @@
           }
         }
       },
+      "http.user.ListUserByPageReply": {
+        "type": "object",
+        "properties": {
+          "userList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/http.user.UserInfo"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "http.user.ListUserByPageRequest": {
+        "type": "object",
+        "properties": {
+          "current": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "http.user.LoginReply": {
         "type": "object",
         "properties": {
@@ -287,6 +345,34 @@
           }
         },
         "description": "Register 用户注册\n 前端传来的请求"
+      },
+      "http.user.UserInfo": {
+        "type": "object",
+        "properties": {
+          "account": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "avatarUrl": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "userInfo": {
+            "type": "string"
+          },
+          "userRole": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
       }
     }
   },
