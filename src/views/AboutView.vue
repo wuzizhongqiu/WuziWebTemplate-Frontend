@@ -1,7 +1,6 @@
 <template>
   <div class="about">
     <h1>This is an about page</h1>
-    {{ JSON.stringify(loginUserStore.loginUser) }}
     <a-button @click="userLogout">退出登录</a-button>
   </div>
 </template>

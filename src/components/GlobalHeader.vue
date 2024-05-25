@@ -9,7 +9,7 @@
         >
           <div class="titleBar">
             <img class="logo" src="../assets/logo.png" />
-            <div class="title">戊子答题</div>
+            <div class="title">答题应用平台</div>
           </div>
         </a-menu-item>
         <a-menu-item v-for="item in visibleRoutes" :key="item.path">

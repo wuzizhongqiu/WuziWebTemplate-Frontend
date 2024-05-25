@@ -1,18 +1,23 @@
 import { RouteRecordRaw } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import HomePage from "../views/HomePage.vue";
 import UserLayout from "../layouts/UserLayout.vue";
 import NoAuthPage from "../views/NoAuthPage.vue";
 import UserLoginPage from "../views/user/UserLoginPage.vue";
 import UserRegisterPage from "../views/user/UserRegisterPage.vue";
 import AdminUserPage from "../views/admin/AdminUserPage.vue";
+import AdminAppPage from "../views/admin/AdminAppPage.vue"
+import AdminQuestionPage from "../views/admin/AdminQuestionPage.vue"
+import AdminScoringResultPage from "../views/admin/AdminScoringResultPage.vue"
+import AdminUserAnswerPage from "../views/admin/AdminUserAnswerPage.vue"
+
 
 import ACCESS_NUM from "@/access/accessEnum";
 
 export const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    name: "home",
-    component: HomeView,
+    name: "主页",
+    component: HomePage,
   },
   {
     path: "/noAuth",
@@ -31,11 +36,35 @@ export const routes: Array<RouteRecordRaw> = [
     }
   },
   {
-    path: "/hide",
-    name: "隐藏页面",
-    component: HomeView,
+    path: "/admin/answer",
+    name: "回答管理",
+    component: AdminUserAnswerPage,
     meta: {
-      hideInMenu: true, // 不渲染到菜单栏中
+      access: ACCESS_NUM.ADMIN,
+    }
+  },
+  {
+    path: "/admin/score",
+    name: "评分管理",
+    component: AdminScoringResultPage,
+    meta: {
+      access: ACCESS_NUM.ADMIN,
+    }
+  },
+  {
+    path: "/admin/question",
+    name: "题目管理",
+    component: AdminQuestionPage,
+    meta: {
+      access: ACCESS_NUM.ADMIN,
+    }
+  },
+  {
+    path: "/admin/app",
+    name: "应用管理",
+    component: AdminAppPage,
+    meta: {
+      access: ACCESS_NUM.ADMIN,
     }
   },
   {
@@ -60,7 +89,7 @@ export const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/about",
-    name: "about",
+    name: "退出登录",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.

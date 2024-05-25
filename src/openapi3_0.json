@@ -5,6 +5,37 @@
     "version": "0.0.1"
   },
   "paths": {
+    "/v1/app/listapppage": {
+      "post": {
+        "tags": [
+          "App"
+        ],
+        "description": "获取应用列表分页",
+        "operationId": "App_ListAppPage",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/http.app.ListAppPageRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/http.app.ListAppPageReply"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/post/createpost": {
       "post": {
         "tags": [
@@ -191,6 +222,72 @@
   },
   "components": {
     "schemas": {
+      "http.app.AppInfo": {
+        "type": "object",
+        "properties": {
+          "appName": {
+            "type": "string"
+          },
+          "appDesc": {
+            "type": "string"
+          },
+          "appIcon": {
+            "type": "string"
+          },
+          "appType": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "scoringStrategy": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "reviewStatus": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "reviewMessage": {
+            "type": "string"
+          },
+          "reviewId": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "appId": {
+            "type": "string"
+          }
+        }
+      },
+      "http.app.ListAppPageReply": {
+        "type": "object",
+        "properties": {
+          "appList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/http.app.AppInfo"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "http.app.ListAppPageRequest": {
+        "type": "object",
+        "properties": {
+          "current": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "http.post.CreatePostReply": {
         "type": "object",
         "properties": {
@@ -377,6 +474,9 @@
     }
   },
   "tags": [
+    {
+      "name": "App"
+    },
     {
       "name": "Post"
     },
